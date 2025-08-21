@@ -1,0 +1,33 @@
+#! /bin/sh
+
+mode="664"
+if grep -q '^staff:' /etc/group; then
+    group="staff"
+else
+    group="wheel"
+fi
+
+case "$1" in
+    start)
+        echo ">> Starting scull kernel module..."
+        ./scull_load
+        echo ">> Starting faulty kernel module..."
+        ./module_load faulty
+        echo ">> Starting faulty kernel module..."
+        ./module_load hello --use-modprobe
+        ;;
+    stop)
+        # start-stop-daemon -K -n aesdsocket
+        echo "<< Stoping scull kernel module..."
+        ./scull_unload
+        for module in faulty hello; do
+            echo "<< Stoping ${module} kernel module..."
+            ./module_unload $module
+        done
+        ;;
+    *)
+        echo "Usage: $0 {sart|stop}"
+        exit 1
+esac
+
+exit 0
