@@ -23,10 +23,10 @@ else
 fi
 
 echo "Load our module, exit on failure"
-if [ "$2" = "--use-modprobe"]; then
-    modprobe /usr/bin/$module.ko $* || exit 1
+if [ "$2" = "use-modprobe" ]; then
+    modprobe "$module" "$@" || exit 1
 else
-    insmod /usr/bin/$module.ko $* || exit 1
+    insmod "/lib/modules/$(uname -r)/updates/$module.ko" "$@" || exit 1
 fi
 echo "Get the major number (allocated with allocate_chrdev_region) from /proc/devices"
 major=$(awk "\$2==\"$module\" {print \$1}" /proc/devices)

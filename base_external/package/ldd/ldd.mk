@@ -15,13 +15,13 @@ LDD_MODULE_SUBDIRS = misc-modules scull
 LDD_MODULE_MAKE_OPTS = KVERSION=$(LINUX_VERSION_PROBED)
 
 define LDD_BUILD_CMDS
-	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/misc-modules
-	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/scull
+	$(MAKE) $(TARGET_CONFIGURE_OPTS) ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(TARGET_CROSS) -C $(@D)/scull
+	$(MAKE) $(TARGET_CONFIGURE_OPTS) ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(TARGET_CROSS) -C $(@D)/misc-modules
 endef
 
 define LDD_INSTALL_TARGET_CMDS
-	$(INSTALL) -m 0755 $(@D)/misc-modules/*.ko $(TARGET_DIR)/usr/bin/
-	$(INSTALL) -m 0755 $(@D)/scull/*.ko $(TARGET_DIR)/usr/bin/
+	$(INSTALL) -m 0644 $(@D)/scull/*.ko $(TARGET_DIR)/usr/bin/
+	$(MAKE) $(TARGET_CONFIGURE_OPTS) ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(TARGET_CROSS) -C $(@D)/misc-modules INSTALL_MOD_PATH=$(TARGET_DIR) modules_install
 endef
 
 $(eval $(kernel-module))
