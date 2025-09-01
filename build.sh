@@ -28,6 +28,9 @@ then
 else
 	echo "USING EXISTING BUILDROOT CONFIG"
 	echo "To force update, delete .config or make changes using make menuconfig and build again."
+	SCRIPT_DIR="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+	CONF_KERNEL_VER=$(awk -F= '$1=="BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE" {gsub(/"/, "", $2); print $2}' $SCRIPT_DIR/base_external/configs/aesd_qemu_defconfig)
+	echo "Using Kernel version ${CONF_KERNEL_VER} for build."
+	export KERNELDIR="${SCRIPT_DIR}/buildroot/output/build/linux-${CONF_KERNEL_VER}/"
 	make -C buildroot BR2_EXTERNAL=${EXTERNAL_REL_BUILDROOT}
-
 fi
