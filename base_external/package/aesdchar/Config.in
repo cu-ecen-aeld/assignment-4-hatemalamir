@@ -1,0 +1,4 @@
+config BR2_PACKAGE_AESDCHAR
+	bool "aesdchar"
+	help
+	  Device driver for in-memory reading and writing of the most recent 10 commands.

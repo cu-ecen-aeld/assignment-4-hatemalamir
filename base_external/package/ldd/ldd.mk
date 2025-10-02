@@ -20,7 +20,6 @@ define LDD_BUILD_CMDS
 endef
 
 define LDD_INSTALL_TARGET_CMDS
-	$(INSTALL) -m 0644 $(@D)/scull/*.ko $(TARGET_DIR)/usr/bin/
 	$(MAKE) $(TARGET_CONFIGURE_OPTS) ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(TARGET_CROSS) -C $(@D)/misc-modules INSTALL_MOD_PATH=$(TARGET_DIR) modules_install
 endef
 
