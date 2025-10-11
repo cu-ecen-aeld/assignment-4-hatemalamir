@@ -5,7 +5,7 @@
 #
 ##############################################################
 
-AESDCHAR_VERSION = 48f8af60c64c963b8d00f29f146311b0041d5362
+AESDCHAR_VERSION = cbd4a2ef638d7d5a0eb5ba6ad75c32d66b020fcb
 AESDCHAR_SITE = git@github.com:cu-ecen-aeld/assignments-3-and-later-hatemalamir.git
 AESDCHAR_SITE_METHOD = git
 AESDCHAR_GIT_SUBMODULES = YES
